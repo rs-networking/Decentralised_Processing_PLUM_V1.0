@@ -22,7 +22,7 @@ sock.bind((host_IP, port))
 sock.listen(0)
 #######################################################################
 FMT = '%H:%M:%S:%f' 
-print "Listener" + host_IP + "started"
+print "Listener" + host_IP + "started" #Listener sensor started working  
 
 
 
@@ -34,7 +34,7 @@ def trigger_Alert(val, val2):
     if( val not in alert_Count):
         alert_Count.append(val)
         time_Count.append(val2)
-    if(len(alert_Count) == 2):
+    if(len(alert_Count) == 2): #checking whether two alerts are received to generate an alert 
         time= (datetime.today()).strftime("%d-%b-%Y %H:%M:%S:%f").split()
         rec_time  = (time[1][:-1])
         print("Earthquake detected time at first sensor:", time_Count[0])
@@ -57,7 +57,7 @@ def trigger_Alert(val, val2):
 
 
 nodeList =[]
-nodeList = [u'10.241.1.5', u'10.241.1.7', u'10.241.1.9', u'10.241.1.25']
+nodeList = [u'10.241.1.5', u'10.241.1.7', u'10.241.1.9', u'10.241.1.25'] #IP addresses of the neighbouring sensors within 30km radius
 
 
 counter_1 = 0 
@@ -69,7 +69,7 @@ while True:
     print("Message Type:", str(json_obj.get('AlertType')))
     data = str(json_obj.get('Date'))
     sent_time = data.split()      
-    if( (str(json_obj.get('AlertType')) == "Alert")):
+    if( (str(json_obj.get('AlertType')) == "Alert")): #checking whether the received packet is an alert
         sensor_Data_Handler( str(json_obj.get('AlertType')), recieved)
         print("Calling the Alert Function !!!")
         trigger_Alert(str(json_obj.get('Sensor_ID')),sent_time[1])
