@@ -15,7 +15,7 @@ import json
  
 
 
-def alert_Message(AlertType, host, AlertData):
+def alert_Message(AlertType, host, AlertData): #this function defines the message format for the alert message
     Alertmsg = {}
     Alertmsg['AlertType'] = AlertType
     Alertmsg['Sensor_ID'] = host
