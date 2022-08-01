@@ -16,7 +16,7 @@ from msg_format import alert_Message
 
 
 
-def tcp_Sender(nodeList, host, PORT, AlertType , AlertData):
+def tcp_Sender(nodeList, host, PORT, AlertType , AlertData): #this function sends the alert message to all the neighboring sensors within 30kms radius
     for IP in nodeList:
         try:
             message = alert_Message(AlertType, host , AlertData)
