@@ -20,10 +20,10 @@ import sys
 
 
 ################################Sensor Variables###############################
-host =  raw_input("Please enter the IP address of the sender RS4D:")
-thr_val = int(input("Please enter threshold for the detection:"))     
+host =  raw_input("Please enter the IP address of the sender RS4D:") #enter the local zerotier IP address of the sensor
+thr_val = int(input("Please enter threshold for the detection:"))   # ground motion threshold value for generating an alert  
 port = 8888
-TCP_port  = 5005
+TCP_port  = 5005 
 ###############################################################################
 
 
@@ -57,7 +57,7 @@ sock.bind((host, port))
 ###############################################################################
 
 
-print('Starting the Sensor ' + host + " !!!")
+print('Starting the Sensor ' + host + " !!!") #starting the sending end of the sensor 
 
 
 ############################## Code Variable Declaration ###################### 
@@ -74,11 +74,11 @@ def alarm_event(in_data, threshold, window_size): # Function which alerts people
     global x
     global counter_1 
     for i in in_data:
-        if (i >= threshold):
+        if (i >= threshold): #checking whether the threshold is exceeded
             alert_data.append(i)
         else:
             alert_data = []
-        if( len(alert_data) == window_size):
+        if( len(alert_data) == window_size): #checking whether the threshold is exceeded consecutively equal to the window size
             print("threshold passed,  Local alert")
             alert_data = []
             counter_1 += 1                                                                                   
@@ -86,7 +86,7 @@ def alarm_event(in_data, threshold, window_size): # Function which alerts people
             text_file.write(str(counter_1))                                                                  
             text_file.write("\n")                                                                            
             text_file.close() 
-            tcp_Sender(nodeList, host, TCP_port, "Alert", "Threshold Exceeded!!!")
+            tcp_Sender(nodeList, host, TCP_port, "Alert", "Threshold Exceeded!!!") #sending the alert to all the sensors within 30kms
 
 
 def sqre_func(L): #Function which returns the average of signal readings
@@ -100,7 +100,7 @@ def magnitude_func(L): #Function which returns the average of signal readings
     sense_data = s[2:len(s)]
     sense_int  = [int(i) for i in sense_data]
     mean       = sum(sense_int)/25
-    count      = [ x - mean for x in sense_int]
+    count      = [ x - mean for x in sense_int] #demeaning the data 
     mag_list        = np.square(count) 
     return mag_list
 
